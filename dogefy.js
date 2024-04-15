@@ -61,7 +61,7 @@ $(document).ready(function() {
             // If we find a currency value, convert it into Dogecoin 
             if (matches) {
                 for (var i = 0; i < matches.length; i++) {
-                    const numericValue = matches[i].match(/[\d\.,]+/); // Adjusted regex
+                    const numericValue = matches[i].match(/[\d\,.]+/); // Adjusted regex
                     // Replace the HTML to dogefy the webpage
                     let dogefy = $('body').html().replace(fiat[option] + numericValue, 'Ð' + (numericValue / dogecoinValues[option]).toFixed(2));
                     // Dogefy the website
