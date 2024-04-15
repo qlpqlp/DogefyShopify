@@ -21,6 +21,31 @@ $(document).ready(function() {
         alert("Sorry shibe, please enable Local Storage on your browser to store the Dogecoin current value");
     }
 
+    // Function to remove currency symbols preceded by a number and a space
+    function removeCurrencySymbols() {
+        // Construct regular expressions for each currency symbol defined in the `fiat` object
+        var regexes = Object.keys(fiat).map(function(key) {
+            return new RegExp('(\\d+)\\s+' + escapeRegExp(fiat[key]), 'ig');
+        });
+
+        // Replace currency symbols in the entire HTML content of the page
+        var modifiedHTML = $('body').html();
+        regexes.forEach(function(regex) {
+            modifiedHTML = modifiedHTML.replace(regex, '$1 ');
+        });
+
+        // Update the HTML content of the page with the modified content
+        $('body').html(modifiedHTML);
+    }
+
+    // Function to escape special characters in a string for regex
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+
+    // Call the function to remove currency symbols when the document is ready
+    removeCurrencySymbols();
+
     // Fetch the current fiat value of Dogecoin for each fiat option from coingecko and store it on Shibe local Browser
     fiatOptions.forEach(function(option) {
         $.getJSON("https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=" + option, function(data){
@@ -81,7 +106,7 @@ $(document).ready(function() {
 
         // Extract the amount from the text using regular expression
         var amountMatch = subtotalText.match(/(\d+(\.\d+)?)/);
-        alert(amountMatch);
+
         // If a match is found, parse the amount and assign it to the variable dogecoin_amount
         if (amountMatch) {
             alert('Hello Shibe, After payment in Doge you have to click on the Contact Page and send to us the Dogecoin Transaction ID and the Shipping Details to be able to verify the payment and send your order.');
