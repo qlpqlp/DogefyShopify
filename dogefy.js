@@ -20,32 +20,7 @@ $(document).ready(function() {
     if(!isLocalStorageAvailable()){
         alert("Sorry shibe, please enable Local Storage on your browser to store the Dogecoin current value");
     }
-
-    // Function to remove currency symbols preceded by a number and a space
-    function removeCurrencySymbols() {
-        // Construct regular expressions for each currency symbol defined in the `fiat` object
-        var regexes = Object.keys(fiat).map(function(key) {
-            return new RegExp('(\\d+)\\s+' + escapeRegExp(fiat[key]), 'ig');
-        });
-
-        // Replace currency symbols in the entire HTML content of the page
-        var modifiedHTML = $('body').html();
-        regexes.forEach(function(regex) {
-            modifiedHTML = modifiedHTML.replace(regex, '$1 ');
-        });
-
-        // Update the HTML content of the page with the modified content
-        $('body').html(modifiedHTML);
-    }
-
-    // Function to escape special characters in a string for regex
-    function escapeRegExp(string) {
-        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-    }
-
-    // Call the function to remove currency symbols when the document is ready
-    removeCurrencySymbols();
-
+    
     // Fetch the current fiat value of Dogecoin for each fiat option from coingecko and store it on Shibe local Browser
     fiatOptions.forEach(function(option) {
         $.getJSON("https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=" + option, function(data){
@@ -69,8 +44,16 @@ $(document).ready(function() {
     // Hide the element with the tag <quantity-input>
     $('quantity-input').hide();
 
-    // We hide Buy Now Button to force to go to Checkout
-    $('[data-testid="Checkout-button"]').hide();
+    // Function to hide the element with the attribute [data-testid="Checkout-button"]
+    function hideCheckoutButton() {
+        $('[data-testid="Checkout-button"]').hide();
+    }
+
+    // Call the function to hide the element immediately when the document is ready
+    hideCheckoutButton();
+
+    // Set an interval to repeatedly hide the element every 2 seconds
+    setInterval(hideCheckoutButton, 2000); // 2000 milliseconds = 2 seconds
 
     // Find all fiat prices on the webpage for each fiat option to be able to convert into Doge
     fiatOptions.forEach(function(option) {
