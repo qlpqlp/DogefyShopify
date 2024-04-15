@@ -81,7 +81,7 @@ $(document).ready(function() {
 
         // Extract the amount from the text using regular expression
         var amountMatch = subtotalText.match(/(\d+(\.\d+)?)/);
-
+        alert(amountMatch);
         // If a match is found, parse the amount and assign it to the variable dogecoin_amount
         if (amountMatch) {
             alert('Hello Shibe, After payment in Doge you have to click on the Contact Page and send to us the Dogecoin Transaction ID and the Shipping Details to be able to verify the payment and send your order.');
