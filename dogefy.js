@@ -41,21 +41,27 @@ $(document).ready(function() {
         }
     });
 
+    // Hide the element with the tag <quantity-input>
+    $('quantity-input').hide();
+
+    // We hide Buy Now Button to force to go to Checkout
+    $('.shopify-payment-button__button').hide();
+
     // Find all fiat prices on the webpage for each fiat option to be able to convert into Doge
     fiatOptions.forEach(function(option) {
-        var regex = new RegExp('\\' + fiat[option] + '\\d+(.\\d{3})*(\\,\\d+)?', 'g');
-      
+        var regex = new RegExp('\\' + fiat[option] + '\\d+(\\.\\d{2})?(,\\d+)?', 'g'); // Adjusted regex
+        
         // Filter all HTML tags to find fiat values
         $('*').filter(function() { 
             return $(this).children().length;
         }).each(function() {
             var text = $(this).text(); // Get text of element
             var matches = text.match(regex); // Find currency values in text    
-    
+
             // If we find a currency value, convert it into Dogecoin 
             if (matches) {
                 for (var i = 0; i < matches.length; i++) {
-                    const numericValue = matches[i].match(/[\d\.]+/); // Get numeric value
+                    const numericValue = matches[i].match(/[\d\.,]+/); // Adjusted regex
                     // Replace the HTML to dogefy the webpage
                     let dogefy = $('body').html().replace(fiat[option] + numericValue, 'Ð' + (numericValue / dogecoinValues[option]).toFixed(2));
                     // Dogefy the website
@@ -64,6 +70,7 @@ $(document).ready(function() {
             }
         });    
     });
+
 
     // We Add an event listener to the checkout button to be able to use fetch.dogecoin.org yo create a Doge QR payment
     $('#checkout').click(function(event) {
@@ -80,6 +87,9 @@ $(document).ready(function() {
             alert('Hello Shibe, After payment in Doge you have to click on the Contact Page and send to us the Dogecoin Transaction ID and the Shipping Details to be able to verify the payment and send your order.');
             // Hide the checkout button
             $('#checkout').hide();
+
+            // we display blick to align the QR code and Doge Address
+            $('.cart__ctas').css('display', 'block');
 
             // Convert comma to dot for decimal separator
             var dogecoin_amount = parseFloat(amountMatch[0].replace(',', '.'));
