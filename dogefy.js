@@ -49,7 +49,7 @@ $(document).ready(function() {
 
     // Find all fiat prices on the webpage for each fiat option to be able to convert into Doge
     fiatOptions.forEach(function(option) {
-        var regex = new RegExp('\\' + fiat[option] + '\\d+(\\.\\d{2})?(,\\d+)?', 'g'); // Adjusted regex
+        var regex = new RegExp('\\' + fiat[option] + '\\d+(,\\d{3})*(\\.\\d+)?', 'g'); // Adjusted regex
         
         // Filter all HTML tags to find fiat values
         $('*').filter(function() { 
