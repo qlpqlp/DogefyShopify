@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>DogeFyShopify - Convert any Shopify Store to show Dogecoin prices using your Fiat Prices</title>
+  <meta name="description" content="Accept Dogecoin Payments in your Shopify">
+  <meta name="author" content="All Dogecoin Community!">
+  <meta name="generator" content="You!">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DogeFyShopify - Convert any Shopify Store to show Dogecoin prices using your Fiat Prices">
+  <meta name="twitter:site" content="https://qlpqlp.github.io/DogefyShopify/">
+  <meta name="twitter:description" content="DogeFyShopify">
+  <meta name="twitter:image" content="https://qlpqlp.github.io/DogefyShopify/img/doge_card.png">
+
+  <link href="//qlpqlp.github.io/DogefyShopify/img/dogefy.png" rel="icon" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <script src="//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css" integrity="sha512-/mZ1FHPkg6EKcxo0fKXF51ak6Cr2ocgDi5ytaTBjsQZIH/RNs6GF6+oId/vPe3eJB836T36nXwVh/WBl/cWT4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://unpkg.com/dracula-prism/dist/css/dracula-prism.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-javascript.min.js" integrity="sha512-yvw5BDA/GQu8umskpIOBhX2pDLrdOiriaK4kVxtD28QEGLV5rscmCfDjkrx52tIgzLgwzs1FsALV6eYDpGnEkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- DogefyShopify your Shopify Store and convert all Fiat Prices into the current Dogecoin Value and -->
+  <!-- Enable your Store accept payments in Doge -->
+  <!-- Add this code below before </head> tag and change the fiat_currency and fiat_currency_symbol to match your website-->
+  <script type="text/javascript">
+    // we set your website fiat currency and fiat symbol to be automaticly replaced with the Dogecoin Value and Symbol
+    // this is to get the Dogecoin price from coingecko API
+    // must be the same used on your website and must match something like $123.456 or €123.456 etc.
+    const fiat = {
+      "usd": "$",
+      "eur": "€"
+    };    
+  </script>
+  <!-- we load JQuery if your website does not load. You can remove it if you want -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" crossorigin="anonymous"></script>
+  <!-- we load the magic file and must be in the same root as your website do to CORS policy of coingecko API -->
+  <script type="text/javascript" src="//qlpqlp.github.io/DogefyShopify/dogefy.js" crossorigin="anonymous"></script>
+  <script type="module" src="//fetch.dogecoin.org/doge-qr.js"></script>
+  <!-- End of Dogefy your website and convert all Fiat Prices into the current Dogecoin Value-->
+</head>
+
+<body>
+
+<div class="row" style="max-width: 600px; margin: auto;">
+<div class="col" style="text-align: center; font-weight: bold;">
+    <div style="font-size: 30px;padding: 20px; "><img src="img/dogefyshopify.png" style="max-width: 100px;"  /> DogeFyShopify your Shopify store!</div>
+
+    <div class="row" style="border: 1px solid #ccc; margin: 5px; border-radius: 10px;">
+        <div class="col-12" style="padding-bottom: 20px;">This prices below are in fiat but auto converted using dogefy.js</div>
+        <div class="col">Fiat Price A): $10.00 (10,00 Dollars)</div>
+        <div class="col">Fiat Price B): $20.00 (20,00 Dollars)</div>
+        <div class="col">Fiat Price C): $30.00 (30,00 Dollars)</div>
+
+        <div class="col">Fiat Price D): €15.00 (15,00 Euros)</div>
+        <div class="col">Fiat Price F): €25.00 (25,00 Euros)</div>
+        <div class="col">Fiat Price G): €35.00 (35,00 Euros)</div>        
+    </div>
+    <a href="https://github.com/qlpqlp/dogefy" class="btn btn-success" style="width: 100%;"><i class="fa-brands fa-github"></i> Download Code on GIT</a>
+<pre>
+<code class="language-javascript" data-prismjs-copy="Copy"></code>
+  &lt;!-- DogeFyShopify your Shopify store --&gt;  
+  &lt;!-- Add this code below before </head> tag and change the available parameters with your Dogecoin Address --&gt;
+
+  &lt;script type="text/javascript"&gt;
+
+  // Set your Dogecoin payment Adress to recive the payments in Dogecoin
+  var dogecoin_address = "DTqAFgNNUgiPEfGmc4HZUkqJ4sz5vADd1n";
+
+  // Set the fetch theme using on the QR code you can see it here: https://fetch.dogecoin.org/doge-qr/demo/
+  var dogecoin_theme = "such-doge";
+
+  // Set your website fiat currency and fiat symbol to be automaticly replaced with the Dogecoin Value and Symbol
+  // this is to get the Dogecoin price from coingecko API
+  // must be the same used on your website and must match something like $123.456 or €123.456 etc.
+  const fiat = {
+    "usd": "$",
+    "eur": "€"
+  };    
+  
+  &lt;/script&gt;
+
+
+  &lt;!-- we load JQuery if your website does not load. You can remove it if you want --&gt;
+  &lt;script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" crossorigin="anonymous"&gt;&lt;/script&gt;
+  
+  &lt;!-- we load the magic files :P --&gt;
+  &lt;script type="text/javascript" src="//qlpqlp.github.io/DogefyShopify/dogefy.js" crossorigin="anonymous"&gt;&lt;/script&gt;
+  &lt;script type="module" src="//fetch.dogecoin.org/doge-qr.js" crossorigin="anonymous"&gt;&lt;/script&gt;
+  
+  &lt;!-- End of DogeFyShopify your Shopify store --&gt;
+ </code>
+</pre>
+</div>
+
+</div>
+</body>
+</html>
