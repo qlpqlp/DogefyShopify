@@ -45,7 +45,7 @@ $(document).ready(function() {
     $('quantity-input').hide();
 
     // We hide Buy Now Button to force to go to Checkout
-    $('.shopify-payment-button__button').hide();
+    $('[data-testid="Checkout-button"]').hide();
 
     // Find all fiat prices on the webpage for each fiat option to be able to convert into Doge
     fiatOptions.forEach(function(option) {
@@ -88,7 +88,7 @@ $(document).ready(function() {
             // Hide the checkout button
             $('#checkout').hide();
 
-            // we display blick to align the QR code and Doge Address
+            // we display block to align the QR code and Doge Address
             $('.cart__ctas').css('display', 'block');
 
             // Convert comma to dot for decimal separator
