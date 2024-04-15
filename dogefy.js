@@ -80,7 +80,7 @@ $(document).ready(function() {
         var subtotalText = $('.totals__subtotal-value').text();
 
         // Extract the amount from the text using regular expression
-        var amountMatch = subtotalText.match(/\d+.\d+/);
+        var amountMatch = subtotalText.match(/(\d+(\.\d+)?)/);
 
         // If a match is found, parse the amount and assign it to the variable dogecoin_amount
         if (amountMatch) {
