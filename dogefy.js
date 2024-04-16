@@ -35,7 +35,7 @@ function runDogefyScript() {
                             Swal.fire({
                                 title: 'Much Sad!',
                                 text: 'Sorry shibe, please enable Local Storage on your browser to store the Dogecoin current value',
-                                icon: 'error',
+                                imageUrl: "https://qlpqlp.github.io/DogefyShopify/img/sad_doge.gif",
                             });        
                     }
                     
@@ -59,8 +59,8 @@ function runDogefyScript() {
                         }
                     });
 
-                    // Hide the element with the tag <quantity-input>
-                    jQuery('quantity-input').hide();
+                    // Hide the element with the quantity
+                    jQuery('.cart-item__quantity-wrapper').hide();
 
                     // Function to hide the element with the attribute [data-testid="Checkout-button"]
                     function hideCheckoutButton() {
@@ -125,13 +125,16 @@ function runDogefyScript() {
                             Swal.fire({
                                 title: 'Hello Shibe!',
                                 text: 'After payment in Doge you have to click on the Contact Page and send to us the Dogecoin Transaction ID, the link of the product you bought and the Shipping Details to be able to verify the payment and send your order.',
-                                icon: 'info',
+                                icon: 'warning',
                                 showCancelButton: false,
                                 confirmButtonText: 'Got it!',
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     // Hide the checkout button
                                     jQuery('#checkout').hide();
+
+                                    // We remove the Shopify products from cart that are stores on cookies
+                                    document.cookie = 'cart=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
                                     // we display block to align the QR code and Doge Address
                                     jQuery('.cart__ctas').css('display', 'block');
@@ -183,7 +186,7 @@ function runDogefyScript() {
                             Swal.fire({
                                 title: 'Much Sad!',
                                 text: 'Can\'t get total to pay in Doge!',
-                                icon: 'error',
+                                imageUrl: "https://qlpqlp.github.io/DogefyShopify/img/sad_doge.gif",
                             });
                         }
                     });
