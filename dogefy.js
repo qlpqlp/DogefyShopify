@@ -3,10 +3,10 @@
 
     // Check if 'jQuery' is already defined
     if (typeof jQuery === 'undefined') {
-        // Load $ dynamically if it's not already defined
-        var $Script = document.createElement('script');
-        $Script.src = 'https://code.$.com/$-3.6.0.min.js';
-        document.head.appendChild($Script);
+        // Load jQuery dynamically if it's not already defined
+        var jQueryScript = document.createElement('script');
+        jQueryScript.src = 'https://code.jQuery.com/jQuery-3.6.0.min.js';
+        document.head.appendChild(jQueryScript);
     }
 
     // Check if 'Swal' is already defined
@@ -43,11 +43,11 @@
     const fiatOptions = Object.keys(fiat);
 
     // wen the website finish loading it will try to convert everything
-    $(document).ready(function() {
+    jQuery(document).ready(function() {
 
         // Fetch the current fiat value of Dogecoin for each fiat option from coingecko and store it on Shibe local Browser
         fiatOptions.forEach(function(option) {
-            $.getJSON("https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=" + option, function(data){
+            jQuery.getJSON("https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=" + option, function(data){
                 localStorage.setItem('dogecoinValue_' + option, data["dogecoin"][option]); // Store the value in local storage
             }).fail(function( dat, textStatus, error ) {
                 var err = textStatus + ", " + error;
@@ -55,11 +55,11 @@
         });
 
         // Hide the element with the quantity
-        $('.cart-item__quantity-wrapper').hide();
+        jQuery('.cart-item__quantity-wrapper').hide();
 
         // Function to hide the element with the attribute [data-testid="Checkout-button"]
         function hideCheckoutButton() {
-            $('[data-testid="Checkout-button"]').hide();
+            jQuery('[data-testid="Checkout-button"]').hide();
         }
 
         // Call the function to hide the element immediately when the document is ready
@@ -73,10 +73,10 @@
             var regex = new RegExp('\\' + fiat[option] + '\\d+(,\\d{3})*(\\.\\d+)?', 'g'); // Adjusted regex
             
             // Filter all HTML tags to find fiat values
-            $('*').filter(function() { 
-                return $(this).children().length;
+            jQuery('*').filter(function() { 
+                return jQuery(this).children().length;
             }).each(function() {
-                var text = $(this).text(); // Get text of element
+                var text = jQuery(this).text(); // Get text of element
                 var matches = text.match(regex); // Find currency values in text    
 
                 // If we find a currency value, convert it into Dogecoin 
@@ -84,21 +84,21 @@
                     for (var i = 0; i < matches.length; i++) {
                         const numericValue = matches[i].match(/[\d\.,]+/); // Adjusted regex
                         // Replace the HTML to dogefy the webpage
-                        let dogefy = $('body').html().replace(fiat[option] + numericValue, 'Ð' + (numericValue / dogecoinValues[option]).toFixed(2));
+                        let dogefy = jQuery('body').html().replace(fiat[option] + numericValue, 'Ð' + (numericValue / dogecoinValues[option]).toFixed(2));
                         // Dogefy the website
-                        $('body').html(dogefy);             
+                        jQuery('body').html(dogefy);             
                     }
                 }
             });    
         });
 
         // We Add an event listener to the checkout button to be able to use fetch.dogecoin.org yo create a Doge QR payment
-        $('#checkout').click(function(event) {
+        jQuery('#checkout').click(function(event) {
             event.preventDefault(); // Prevent form submission
 
             // Fetch the amount from the totals elements
-            var subtotalText = $('.totals__subtotal-value').text();
-            var totalText = $('.totals__total-value').text();
+            var subtotalText = jQuery('.totals__subtotal-value').text();
+            var totalText = jQuery('.totals__total-value').text();
 
             // Extract the amount from the text using regular expression
             var amountMatchsubtotal = subtotalText.match(/(\d+(\.\d+)?)/);
@@ -125,26 +125,26 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Hide the checkout button
-                        $('#checkout').hide();
+                        jQuery('#checkout').hide();
 
                         // We remove the Shopify products from cart that are stores on cookies
                         document.cookie = 'cart=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
                         // we display block to align the QR code and Doge Address
-                        $('.cart__ctas').css('display', 'block');
+                        jQuery('.cart__ctas').css('display', 'block');
 
                         // Convert comma to dot for decimal separator
                         var dogecoin_amount = parseFloat(amountMatch[0].replace(',', '.'));
 
                         // Create the <a> element with the specified href and target attributes
-                        var anchorElement = $('<a></a>');
+                        var anchorElement = jQuery('<a></a>');
                         anchorElement.attr({
                             'href': 'dogecoin:' + dogecoin_address + '?amount=' + dogecoin_amount,
                             'target': '_blank'
                         });
 
                         // Create the <doge-qr> element dynamically with the specified attributes and align center
-                        var dogeQR = $('<doge-qr style="margin:auto;"></doge-qr>');
+                        var dogeQR = jQuery('<doge-qr style="margin:auto;"></doge-qr>');
                         dogeQR.attr({
                             'address': dogecoin_address,
                             'amount': dogecoin_amount,
@@ -155,10 +155,10 @@
                         anchorElement.append(dogeQR);
 
                         // We add the <a> element with <doge-qr> inside before the checkout button within the .cart__ctas div
-                        $('.cart__ctas').prepend(anchorElement);
+                        jQuery('.cart__ctas').prepend(anchorElement);
 
                         // Create the button to copy dogecoin_address to clipboard
-                        var copyButton = $('<button class="button"> ' + dogecoin_address +' </button>');
+                        var copyButton = jQuery('<button class="button"> ' + dogecoin_address +' </button>');
                         copyButton.click(function() {
                             // Copy the text inside the text field
                             navigator.clipboard.writeText(dogecoin_address);
@@ -172,7 +172,7 @@
                         });
 
                         // Append the copy button below the doge-qr
-                        $('.cart__ctas').append(copyButton);
+                        jQuery('.cart__ctas').append(copyButton);
                     }
                 });
             } else {
