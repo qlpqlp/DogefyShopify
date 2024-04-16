@@ -1,21 +1,28 @@
 //We use a modified version of https://github.com/qlpqlp/Dogefy to make the magic on Shopify Shibes Stores :P
 // we set the fiat array keys
 
-    // Check if 'jQuery' is already defined
-    if (typeof jQuery === 'undefined') {
-        // Load jQuery dynamically if it's not already defined
-        var jQueryScript = document.createElement('script');
-        jQueryScript.src = 'https://code.jQuery.com/jQuery-3.6.0.min.js';
-        document.head.appendChild(jQueryScript);
-    }
+// Check if 'jQuery' is already defined
+if (typeof jQuery === 'undefined') {
+    // Load jQuery dynamically if it's not already defined
+    var jQueryScript = document.createElement('script');
+    jQueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+    jQueryScript.onload = runDogefyScript; // Call runDogefyScript function after jQuery is loaded
+    document.head.appendChild(jQueryScript);
+} else {
+    // If jQuery is already defined, directly call the function
+    runDogefyScript();
+}
 
-    // Check if 'Swal' is already defined
-    if (typeof Swal === 'undefined') {
-        // Load sweetalert2 script only if 'Swal' is not already defined
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-        document.head.appendChild(scriptElement);
-    }
+// Check if 'Swal' is already defined
+if (typeof Swal === 'undefined') {
+    // Load sweetalert2 script only if 'Swal' is not already defined
+    var scriptElement = document.createElement('script');
+    scriptElement.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    document.head.appendChild(scriptElement);
+}
+
+// Your entire script here
+function runDogefyScript() {
 
     // Check if Local Storage is available
     function isLocalStorageAvailable(){
@@ -186,3 +193,4 @@
         });
 });
 
+};
