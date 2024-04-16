@@ -1,5 +1,9 @@
 //We use a modified version of https://github.com/qlpqlp/Dogefy to make the magic on Shopify Shibes Stores :P
 // we set the fiat array keys
+
+// Disable console jquery anoying conflit errors
+console.error = function() {};
+
 function runDogefyScript() {
     //Your entire script here
     jQuery.noConflict();
@@ -125,7 +129,7 @@ function runDogefyScript() {
                             Swal.fire({
                                 title: 'Hello Shibe!',
                                 text: 'After payment in Doge you have to click on the Contact Page and send to us the Dogecoin Transaction ID, the link of the product you bought and the Shipping Details to be able to verify the payment and send your order.',
-                                icon: 'warning',
+                                imageUrl: "https://qlpqlp.github.io/DogefyShopify/img/doge_shopify.gif",
                                 showCancelButton: false,
                                 confirmButtonText: 'Got it!',
                             }).then((result) => {
