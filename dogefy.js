@@ -23,6 +23,8 @@ if (typeof Swal === 'undefined') {
 
 // Your entire script here
 function runDogefyScript() {
+    
+    var dogecoinValues = {}; // Initialize an empty object
 
     // Check if Local Storage is available
     function isLocalStorageAvailable(){
