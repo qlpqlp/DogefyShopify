@@ -1,7 +1,7 @@
 <h1 align="center">
-Dogefy
+DogefyShopify
 <br><br>
-<img src="https://qlpqlp.github.io/DogefyShopify/img/doge_card.png" alt="DogeFyShopify - Convert any Shopify Store to show Dogecoin prices using your Fiat Prices" />
+<img src="https://qlpqlp.github.io/DogefyShopify/img/doge_card.png" alt="DogefyShopify - Convert any Shopify Store to show Dogecoin prices using your Fiat Prices" />
 <br><br>
 </h1>
 
@@ -48,8 +48,6 @@ You can also setup more currencies and change the QR code theme if you want :)
   };    
   
   </script>
-  <!-- we load JQuery if your website does not load. You can remove it if you want -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" crossorigin="anonymous"></script>
   
   <!-- we load the magic files :P -->
   <script type="text/javascript" src="//qlpqlp.github.io/DogefyShopify/dogefy.js" crossorigin="anonymous"></script>
