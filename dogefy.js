@@ -6,7 +6,6 @@
         // Load $ dynamically if it's not already defined
         var $Script = document.createElement('script');
         $Script.src = 'https://code.$.com/$-3.6.0.min.js';
-        $Script.onload = runDogefyScript;
         document.head.appendChild($Script);
     }
 
