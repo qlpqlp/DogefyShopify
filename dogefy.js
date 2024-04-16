@@ -13,26 +13,6 @@ function runDogefyScript() {
         }
     }
 
-    // Check if 'Swal' is already defined
-    if (typeof Swal === 'undefined') {
-        // Load sweetalert2 script only if 'Swal' is not already defined
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-        document.head.appendChild(scriptElement);
-    }
-
-    // Check if 'jQuery' is already defined
-    if (typeof jQuery === 'undefined') {
-        // Load jQuery dynamically if it's not already defined
-        var jqueryScript = document.createElement('script');
-        jqueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-        jqueryScript.onload = runDogefyScript;
-        document.head.appendChild(jqueryScript);
-    } else {
-        // If jQuery is already defined, directly call the function
-        runDogefyScript();
-    }
-
     // Your entire script here
     jQuery.noConflict();
 
@@ -191,3 +171,24 @@ function runDogefyScript() {
         });
     });
 }
+
+    // Check if 'Swal' is already defined
+    if (typeof Swal === 'undefined') {
+        // Load sweetalert2 script only if 'Swal' is not already defined
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+        document.head.appendChild(scriptElement);
+    }
+
+    // Check if 'jQuery' is already defined
+    if (typeof jQuery === 'undefined') {
+        // Load jQuery dynamically if it's not already defined
+        var jqueryScript = document.createElement('script');
+        jqueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+        jqueryScript.onload = runDogefyScript;
+        document.head.appendChild(jqueryScript);
+        runDogefyScript();
+    } else {
+        // If jQuery is already defined, directly call the function
+        runDogefyScript();
+    }
