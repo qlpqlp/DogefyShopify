@@ -1,9 +1,20 @@
 //We use a modified version of https://github.com/qlpqlp/Dogefy to make the magic on Shopify Shibes Stores :P
-// we set the fiat array keys 
+// we set the fiat array keys
+jQuery.noConflict();
+
+// Create a <script> element for the sweetalert2
+var scriptElement = document.createElement('script');
+
+// Set the src attribute to the SweetAlert2 CDN
+scriptElement.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+
+// Append the <script> element to the <head> section of the document
+document.head.appendChild(scriptElement);
+
 const fiatOptions = Object.keys(fiat);
 
 // wen the website finish loading it will try to convert everything
-$(document).ready(function() {
+jQuery(document).ready(function() {
 
     // Check if Local Storage is available
     function isLocalStorageAvailable(){
@@ -18,7 +29,11 @@ $(document).ready(function() {
     }
     
     if(!isLocalStorageAvailable()){
-        alert("Sorry shibe, please enable Local Storage on your browser to store the Dogecoin current value");
+            Swal.fire({
+                title: 'Much Sad!',
+                text: 'Sorry shibe, please enable Local Storage on your browser to store the Dogecoin current value',
+                icon: 'error',
+            });        
     }
     
     // Fetch the current fiat value of Dogecoin for each fiat option from coingecko and store it on Shibe local Browser
@@ -84,59 +99,90 @@ $(document).ready(function() {
     $('#checkout').click(function(event) {
         event.preventDefault(); // Prevent form submission
 
-        // Fetch the amount from the totals__subtotal-value element
+        // Fetch the amount from the totals elements
         var subtotalText = $('.totals__subtotal-value').text();
+        var totalText = $('.totals__total-value').text();
 
         // Extract the amount from the text using regular expression
-        var amountMatch = subtotalText.match(/(\d+(\.\d+)?)/);
+        var amountMatchsubtotal = subtotalText.match(/(\d+(\.\d+)?)/);
+        var amountMatchtotal = totalText.match(/(\d+(\.\d+)?)/);
 
-        // If a match is found, parse the amount and assign it to the variable dogecoin_amount
+        // Variable to hold the final dogecoin amount
+        var amountMatch;
+
+        // Check if amountMatchtotal exists
+        if (amountMatchtotal) {
+            amountMatch = amountMatchtotal;
+        } else if (amountMatchsubtotal) {
+            amountMatch = amountMatchsubtotal;
+        }
+
+        // If there is a doge amount to amountMatch and assign it to the variable dogecoin_amount
         if (amountMatch) {
-            alert('Hello Shibe, After payment in Doge you have to click on the Contact Page and send to us the Dogecoin Transaction ID and the Shipping Details to be able to verify the payment and send your order.');
-            // Hide the checkout button
-            $('#checkout').hide();
+            Swal.fire({
+                title: 'Hello Shibe!',
+                text: 'After payment in Doge you have to click on the Contact Page and send to us the Dogecoin Transaction ID, the link of the product you bought and the Shipping Details to be able to verify the payment and send your order.',
+                icon: 'info',
+                showCancelButton: false,
+                confirmButtonText: 'Got it!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Hide the checkout button
+                    $('#checkout').hide();
 
-            // we display block to align the QR code and Doge Address
-            $('.cart__ctas').css('display', 'block');
+                    // we display block to align the QR code and Doge Address
+                    $('.cart__ctas').css('display', 'block');
 
-            // Convert comma to dot for decimal separator
-            var dogecoin_amount = parseFloat(amountMatch[0].replace(',', '.'));
+                    // Convert comma to dot for decimal separator
+                    var dogecoin_amount = parseFloat(amountMatch[0].replace(',', '.'));
 
-            // Create the <a> element with the specified href and target attributes
-            var anchorElement = $('<a></a>');
-            anchorElement.attr({
-                'href': 'dogecoin:' + dogecoin_address + '?amount=' + dogecoin_amount,
-                'target': '_blank'
+                    // Create the <a> element with the specified href and target attributes
+                    var anchorElement = $('<a></a>');
+                    anchorElement.attr({
+                        'href': 'dogecoin:' + dogecoin_address + '?amount=' + dogecoin_amount,
+                        'target': '_blank'
+                    });
+
+                    // Create the <doge-qr> element dynamically with the specified attributes and align center
+                    var dogeQR = $('<doge-qr style="margin:auto;"></doge-qr>');
+                    dogeQR.attr({
+                        'address': dogecoin_address,
+                        'amount': dogecoin_amount,
+                        'theme': dogecoin_theme
+                    });
+
+                    // Append the <doge-qr> element inside the <a> element
+                    anchorElement.append(dogeQR);
+
+                    // We add the <a> element with <doge-qr> inside before the checkout button within the .cart__ctas div
+                    $('.cart__ctas').prepend(anchorElement);
+
+                    // Create the button to copy dogecoin_address to clipboard
+                    var copyButton = $('<button class="button"> ' + dogecoin_address +' </button>');
+                    copyButton.click(function() {
+                        // Copy the text inside the text field
+                        navigator.clipboard.writeText(dogecoin_address);
+                        Swal.fire({
+                            title: 'Copied!',
+                            text: 'Dogecoin address copied to clipboard!',
+                            icon: 'success',
+                            timer: 2000,
+                            timerProgressBar: true,
+                        });
+                    });
+
+                    // Append the copy button below the doge-qr
+                    $('.cart__ctas').append(copyButton);
+                }
             });
-
-            // Create the <doge-qr> element dynamically with the specified attributes and align center
-            var dogeQR = $('<doge-qr style="margin:auto;"></doge-qr>');
-            dogeQR.attr({
-                'address': dogecoin_address,
-                'amount': dogecoin_amount,
-                'theme': dogecoin_theme
-            });
-
-            // Append the <doge-qr> element inside the <a> element
-            anchorElement.append(dogeQR);
-
-            // We add the <a> element with <doge-qr> inside before the checkout button within the .cart__ctas div
-            $('.cart__ctas').prepend(anchorElement);
-
-            // Create the button to copy dogecoin_address to clipboard
-            var copyButton = $('<button class="button"> ' + dogecoin_address +' </button>');
-            copyButton.click(function() {
-                 // Copy the text inside the text field
-                navigator.clipboard.writeText(dogecoin_address);
-                alert('Dogecoin address copied to clipboard!');
-            });
-
-            // Append the copy button below the doge-qr
-            $('.cart__ctas').append(copyButton);
-
         } else {
             // If no value found, show a message for the shibe
-            alert('Much Sad, cant get total to pay in Doge!');
+            Swal.fire({
+                title: 'Much Sad!',
+                text: 'Can\'t get total to pay in Doge!',
+                icon: 'error',
+            });
         }
-    });   
+    });
+  
 });
