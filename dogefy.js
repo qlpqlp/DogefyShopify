@@ -1,19 +1,6 @@
 // We use a modified version of https://github.com/qlpqlp/Dogefy to enhance Shopify Shibes Stores :P
 // Set the fiat array keys
-
-(function() {
-    // Check if jQuery is already loaded
-    if (typeof window.jQuery === 'undefined') {
-        // Load jQuery dynamically
-        var jqueryScript = document.createElement('script');
-        jqueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-        jqueryScript.onload = runDogefyScript;
-        document.head.appendChild(jqueryScript);
-    } else {
-        // jQuery is already loaded, directly run the script
-        runDogefyScript();
-    }
-
+(function($) {
     // Function to check if Local Storage is available
     function isLocalStorageAvailable(){
         var SuchTest = 'SuchTest';
@@ -185,4 +172,10 @@
             }
         });
     }
-})();
+
+    // Load jQuery dynamically
+    var jqueryScript = document.createElement('script');
+    jqueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+    jqueryScript.onload = runDogefyScript;
+    document.head.appendChild(jqueryScript);
+})(jQuery);
